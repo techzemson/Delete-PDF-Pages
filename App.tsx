@@ -262,7 +262,7 @@ const App: React.FC = () => {
           <div className="flex flex-col items-center justify-center min-h-[60vh] animate-in fade-in zoom-in duration-500">
              <div className="text-center mb-8 max-w-2xl">
                 <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-6 tracking-tight">
-                  Remove PDF Pages <br/>
+                  Delete or Remove PDF Pages <br/>
                   <span className="text-blue-600">Instantly & Securely</span>
                 </h2>
                 <p className="text-lg text-gray-600 dark:text-gray-400">
