@@ -6,7 +6,7 @@ import { AIReport } from './components/AIReport';
 import { 
   Trash2, Download, RotateCcw, ZoomIn, ZoomOut, Grid, List, 
   CheckSquare, Square, FileOutput, ShieldCheck, Zap, 
-  ChevronRight, Home, Menu, X, Sun, Moon
+  ChevronRight, Home, Menu, X, Sun, Moon, Upload
 } from 'lucide-react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip as RechartsTooltip, Legend } from 'recharts';
 
@@ -177,7 +177,9 @@ const App: React.FC = () => {
     setTimeout(async () => {
       try {
         const keptIndices = keptPages.map(p => p.originalIndex);
-        const newPdfBytes = await createNewPDF(file.data, keptIndices);
+        // Create a copy of the buffer to avoid any detachment issues during processing
+        const bufferCopy = file.data.slice(0);
+        const newPdfBytes = await createNewPDF(bufferCopy, keptIndices);
         
         const blob = new Blob([newPdfBytes], { type: 'application/pdf' });
         const url = URL.createObjectURL(blob);
@@ -229,7 +231,7 @@ const App: React.FC = () => {
               <FileOutput className="w-5 h-5 text-white" />
             </div>
             <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-              PDF Page Remover
+              Delete or Remove PDF Pages
             </h1>
           </div>
           
@@ -243,9 +245,9 @@ const App: React.FC = () => {
             {status === ProcessStatus.SUCCESS && (
                <button 
                  onClick={resetTool}
-                 className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400"
+                 className="flex items-center gap-2 px-5 py-2.5 text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-full shadow-lg hover:shadow-blue-500/30 transition-all transform hover:-translate-y-0.5"
                >
-                 <RotateCcw className="w-4 h-4" /> Start Over
+                 <Upload className="w-4 h-4" /> Upload Another PDF
                </button>
             )}
           </div>
@@ -516,7 +518,7 @@ const App: React.FC = () => {
       {/* Footer */}
       <footer className="border-t border-gray-200 dark:border-gray-800 py-8 bg-white dark:bg-gray-900 mt-auto">
         <div className="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
-          <p>&copy; {new Date().getFullYear()} PDF Page Remover Pro. Secure, Client-side Processing.</p>
+          {/* Footer content removed as requested */}
         </div>
       </footer>
     </div>
